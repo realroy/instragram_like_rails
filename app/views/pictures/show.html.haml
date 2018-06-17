@@ -1,4 +1,5 @@
 %h1= @picture.title
+%small= @picture.user.email
 %p= @picture.description
 = link_to 'Back | ', pictures_path
 = link_to 'Edit | ', edit_picture_path(@picture)

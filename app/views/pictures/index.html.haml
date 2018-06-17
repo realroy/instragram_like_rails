@@ -2,4 +2,5 @@
 - @pictures.each do |p|
   %div
     %h3= link_to p.title, p
+    %small= p.user.email
     %p= p.description
