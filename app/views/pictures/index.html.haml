@@ -1,7 +1,19 @@
-%h1 Pictures
-- @pictures.each do |p|
-  %div
-    = image_tag p.image
-    %h3= link_to p.title, p
-    %small= p.user.email
-    %p= p.description
+%h1.text-center Pictures
+.d-flex.justify-content-center
+  - @pictures.each do |p|
+    .card.w-75
+      .card-header.bg-white
+        %strong= p.user.email
+        %br
+      = image_tag p.image, class: 'card-img-top'
+      .card-body
+        = link_to 'Link', like_picture_path(p), class: 'like-btn', method: :put, remote: true
+        %p.card-text.mt-1
+          %strong#like-count= pluralize p.likes.count, 'like'
+        %p.card-text
+          %strong= p.user.email + ' ' + p.title
+          %small.text-muted= p.description
+          %br
+          %small.text-muted= time_ago_in_words p.created_at
+
+= javascript_include_tag 'pictures_index'

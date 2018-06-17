@@ -1,6 +1,7 @@
 class PicturesController < ApplicationController
 
-  before_action :find_picture, only: [:show, :edit, :update, :destroy]
+  before_action :find_picture, only: [:show, :edit, :update, :destroy, :like]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @pictures = Picture.all.order 'created_at DESC'
@@ -38,7 +39,25 @@ class PicturesController < ApplicationController
     redirect_to pictures_path
   end
 
+  def like
+    @like = @picture.likes.find_by user_id: current_user.id
+    if @like == nil
+      @like = @picture.likes.build
+      @like.update user_id: current_user.id
+      @like.save
+      respond_to do |format|
+        format.json {render json: { result: 1 }, status: :ok}
+      end
+    else
+      @like.destroy
+      respond_to do |format|
+        format.json {render json: { result: -1 }, status: :ok}
+      end
+    end
+  end
+
   private
+
 
   def picture_params
     params.require(:picture).permit :title, :description, :image

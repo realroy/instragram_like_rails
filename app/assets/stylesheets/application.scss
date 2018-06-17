@@ -12,3 +12,18 @@
  *
  */
 @import "bootstrap";
+
+.like-btn {
+  color: transparent;
+  background: url("baseline-favorite_border-24px.svg") center no-repeat;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  &:hover {
+    color: transparent;
+    width: 31px;
+    height: 31px;
+    margin: 1px;
+    transition: all 0.3s ease-out;
+    opacity: 0.5;
+  }
+}
