@@ -1,6 +1,7 @@
 %h1 Pictures
 - @pictures.each do |p|
   %div
+    = image_tag p.image
     %h3= link_to p.title, p
     %small= p.user.email
     %p= p.description
